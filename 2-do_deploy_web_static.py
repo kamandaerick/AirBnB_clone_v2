@@ -33,7 +33,8 @@ def do_deploy(archive_path):
 
         # move contents into host web_static
         run('sudo mv /data/web_static/releases/web_static_{}/web_static/* '
-            '/data/web_static/releases/web_static_{}/'.format(timestamp, timestamp))
+            '/data/web_static/releases/web_static_{}/'
+            .format(timestamp, timestamp))
 
         # remove extraneous web_static dir
         run('sudo rm -rf /data/web_static/releases/'
@@ -45,7 +46,7 @@ def do_deploy(archive_path):
         # re-establish symbolic link
         run('sudo ln -s /data/web_static/releases/'
             'web_static_{}/ /data/web_static/current'.format(timestamp))
-    except:
+    except Exception as e:
         return False
 
     # return True on success
